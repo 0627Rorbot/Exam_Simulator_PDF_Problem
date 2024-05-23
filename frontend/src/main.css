@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+*{
+    /* overflow: hidden; */
+}
+*::-webkit-scrollbar {
+    display: none;
+  }
+.mainContainer{
+    width: 100%;
+    height: 100vh;
+}
+.containerInner{
+    position: absolute;
+    top: 50px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+}
+.containerInner>h1{
+    font-size: 100px;
+    color: #007bff !important;
+    font-weight: 900;
+}
+
+.link {
+    text-decoration: none;
+}

@@ -1,0 +1,13 @@
+.home {
+  font-family: Arial, sans-serif;
+}
+.question {
+  margin-bottom: 20px;
+}
+.options {
+  list-style: none;
+  padding: 0;
+}
+.options li {
+  margin: 5px 0;
+}
