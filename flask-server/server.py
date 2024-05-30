@@ -6,6 +6,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
 from pymongo import MongoClient
+import pdfplumber
+import random
+
 
 app = Flask(__name__)
 CORS(app)
@@ -117,5 +120,90 @@ def getusername():
     user_id = args.get("user_id")
     return parse_json(users_collection.find_one({"_id" : ObjectId(user_id)}))
     
+
+# PDF Simulator
+
+@app.route('/api/questions', methods=['GET'])
+@jwt_required( )
+def get_questions():
+    pdf_path = './build/temp2.pdf'
+
+    questions = []
+    with pdfplumber.open(pdf_path) as pdf:
+        k = 0
+        for page in pdf.pages:
+            k += 1
+            if k == 10:
+                break
+            text = page.extract_text()
+            if text:
+                questions.extend(parse_text(text))
+    
+    limit = request.args.get('limit', default=len(questions), type=int)
+    selected_questions = random.sample(questions, min(limit, len(questions)))
+    return jsonify(selected_questions)
+
+@app.route('/api/upload', methods = ['POST'])
+@jwt_required( )
+def upload_file():
+    file = request.files['file']
+    file.save('./build/temp2.pdf')
+    print(file)
+    return "done"
+
+def parse_text(text):
+    # Customize this function based on your PDF structure
+    content_types = {
+        "question": 'Question #',
+        "options": [
+            'A.',
+            'B.',
+            'C.',
+            'D.',
+            'E.',
+            'F.',
+            'G.',
+            'H.',
+            'I.'
+        ],
+        "correct": "Correct Answer: "
+    }
+
+    questions = []
+    blocks = text.split('\n\n')
+
+    for block in blocks:
+        lines = block.split('\n')
+        
+        question = {
+            "question": '',
+            "options": [],
+            "correct": ''
+        }
+
+        for i in range(0, len(lines)):
+            li = lines[i]
+            #question
+            if content_types['question'] in li:
+                question = {
+                    "question": '',
+                    "options": [],
+                    "correct": ''
+                }
+                i = i+1
+                question['question'] = lines[i]
+                continue
+            #correct answer
+            elif content_types['correct'] in li:
+                correct_answer = li.split(content_types['correct'])[-1]
+                question['correct'] = correct_answer
+                continue
+            #options
+            for opt in content_types['options']:
+                if opt in li:
+                    question['options'].append(li)
+        questions.append(question)
+    return questions
+
 if __name__ == "__main__":
     app.run(debug=True)
