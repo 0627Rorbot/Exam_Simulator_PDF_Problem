@@ -7,7 +7,7 @@
     color: #007bff;
 }
 .navbar{
-    padding: 15px;
+    padding: 5px;
     background-color: #fff ;
 }
 .container-fluid{
@@ -49,6 +49,7 @@ h2{
 }
 .navBarFlexBox{
     display: flex;
+    justify-content: space-around;
     gap: 35px !important;
 }
 .addressThing{

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Form, } from 'react-bootstrap';
+import { Card, Button, Form, Row, Col} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from '../store/registerUser/actions';
+import './style.css'
 
 const RegisterUser = props => {
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
 
-  const [address, setAddress] = useState('')
-  const [date, setDate] = useState('2000-06-10')
-  const [id_proof, setId_proof] = useState('')
+  const [email, setEmail] = useState('')
+  const [fname, setFname] = useState('')
+  const [lname, setLname] = useState('')
+  const [password, setPassword] = useState('')
 
   const registerUser = async () => {
     if( address.trim() == "" || date.trim() == "" || id_proof.trim() == "") {
@@ -17,9 +19,10 @@ const RegisterUser = props => {
       return
     }
     const data = {
-      address: address,
-      date: date,
-      id_proof: id_proof
+      email: email,
+      fname: fname,
+      lname: lname,
+      password: password
     }
     dispatch( createUser(data) );
   }
@@ -33,57 +36,71 @@ const RegisterUser = props => {
         <div>
           <div className="container-fluid mt-5">
             <div className="row">
-              <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '500px' }}>
+              <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '500px', minWidth: '250px' }}>
                 <div className="content mr-auto ml-auto">
                   <p>&nbsp;</p>
                   <Card className="mb-3">
-                    <Card.Header as="h2">Register User</Card.Header>
+                    <Card.Header as="h2" className='text-center '>Sign Up</Card.Header>
                     <Card.Body>
-                      <Card.Title>Add eligible user details</Card.Title>
-
                       <Form>
-                        <Form.Group className="mb-3">
-                          <Form.Label>User Address</Form.Label>
-                          <Form.Control type="text" placeholder="User Address" value={ address }
+                        <Form.Group className="mb-3"> 
+                          <Form.Label>Email</Form.Label>
+                          <Form.Control type="text" placeholder="Email" value={ email }
                             name="userAddress" 
                             onChange={ e => {
-                              setAddress(e.target.value) 
+                              setEmail(e.target.value) 
+                            }}
+                          />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                          <Form.Label>First Name</Form.Label>
+                          <Form.Control type="text" placeholder="First Name" value={ fname }
+                            name="firstName" 
+                            onChange={ e => {
+                              setFname(e.target.value) 
+                            }}
+                          />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                          <Form.Label>Last Name</Form.Label>
+                          <Form.Control type="text" placeholder="Last Name" value={ lname }
+                            name="lastName" 
+                            onChange={ e => {
+                              setLname(e.target.value) 
+                            }}
+                          />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                          <Form.Label>Password</Form.Label>
+                          <Form.Control type="text" placeholder="Password" value={ password }
+                            name="password" 
+                            onChange={ e => {
+                              setPassword(e.target.value) 
                             }}
                           />
                         </Form.Group>
                         
-                        <Form.Group className="mb-3">
-                          <Form.Label>Date</Form.Label>
-                          <Form.Control type="date" placeholder="Select Date" value={ date }
-                            name="date"
-                            onChange={ e => {
-                              setDate(e.target.value)
-                            }}
-                          />
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                          <Form.Label>ID proof</Form.Label>
-                          <Form.Control type="file" placeholder="Select Date" 
-                            onChange={ e => {
-                              const file = e.target.files[0];
-                              if( file ){
-                                const url = URL.createObjectURL(file)
-                                setId_proof(url)
-                              }
-                            }}
-                          />
-                        </Form.Group>
+                        <br />
 
                         <Button variant="primary" 
+                          className='d-block w-100 f-sign'
                           onClick={ () => {
                             registerUser();
                           }}
                         >
-                          Register User
+                          Join Simulator
                         </Button>
+
                       </Form>
                     </Card.Body>
+                    <Card.Footer>
+                      <p className='text-center f-13'>
+                        Already have an account?
+                        <a className='text-center f-13'>Log in</a>
+                      </p>
+                    </Card.Footer>
                   </Card>
                   <p>&nbsp;</p>
                 </div>

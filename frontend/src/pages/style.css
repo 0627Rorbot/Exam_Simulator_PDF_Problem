@@ -2,6 +2,7 @@
   font-family: Arial, sans-serif;
 }
 .question {
+  margin-left: 20px;
   margin-bottom: 20px;
 }
 .options {
@@ -10,4 +11,13 @@
 }
 .options li {
   margin: 5px 0;
+}
+
+.f-13 {
+  font-size: 13px;
+}
+
+.f-sign{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
 }

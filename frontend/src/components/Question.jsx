@@ -9,7 +9,7 @@ const Question = ({ question, index }) => {
                 {question.options.map((option, idx) => (
                     <li key={idx}>
                         <label>
-                            <input type="radio" name={`question${index}`} value={option} /> {option}
+                            <input type="checkbox" name={`question${index}`} value={option} /> {option}
                         </label>
                     </li>
                 ))}

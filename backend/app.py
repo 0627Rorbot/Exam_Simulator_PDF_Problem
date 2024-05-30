@@ -29,6 +29,13 @@ def get_questions():
     selected_questions = random.sample(questions, min(limit, len(questions)))
     return jsonify(selected_questions)
 
+@app.route('/api/upload', methods = ['POST'])
+def upload_file():
+    file = request.files['file']
+    file.save('./build/temp2.pdf')
+    print(file)
+    return "done"
+
 def parse_text(text):
     # Customize this function based on your PDF structure
     content_types = {
