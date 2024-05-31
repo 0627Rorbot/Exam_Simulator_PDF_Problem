@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/createlisting" element={<CreateListing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/exam" element={<Exam/>} />
-        <Route path="/problem" element={<Problem/>} />          
+        <Route path="/problem" element={<Problem/>} />     
         <Route component={NotFound} />
       </Routes>
     </div>

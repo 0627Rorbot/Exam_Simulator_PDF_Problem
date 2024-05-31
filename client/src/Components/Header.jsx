@@ -337,8 +337,8 @@ const NAV_ITEMS = [
   },
   {
     label: "Problem",
-    href: "#",
-  },
+    href: "/problem",
+  }
 ];
 
 export default Header;
