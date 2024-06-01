@@ -1,34 +1,48 @@
-import React, { useState } from "react";
-import { pdfjs } from "react-pdf";
-import { Viewer, Worker } from "@react-pdf-viewer/core";
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
-import "@react-pdf-viewer/core/lib/styles/index.css";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+import * as React from 'react';
+import { Viewer } from '@react-pdf-viewer/core';
 
-const PdfViewer = fileUrl => {
-  // const [fileUrl, setFileUrl] = useState(null);
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+import '@react-pdf-viewer/core/lib/styles/index.css';
 
-  // const onFileChange = (event) => {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const url = URL.createObjectURL(file);
-  //     setFileUrl(url);
-  //   }
-  // };
+const PdfViewer= () => {
+    const [url, setUrl] = React.useState('');
 
-  return (
-    <div className="pdf-viewer">
-      {/* <input type="file" onChange={onFileChange} /> */}
-      {fileUrl && (
-        <Worker
-          workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`}
-        >
-          <Viewer fileUrl={fileUrl} plugins={[defaultLayoutPluginInstance]} />
-        </Worker>
-      )}
-    </div>
-  );
+    const onChange = (e) => {
+        const files = e.target.files;
+        files.length > 0 && setUrl(URL.createObjectURL(files[0]));
+    };
+
+    return (
+        <div>
+            <input type="file" accept=".pdf" onChange={onChange} />
+
+            <div className="mt4" style={{ height: '750px' }}>
+                {url ? (
+                    <div
+                        style={{
+                            border: '1px solid rgba(0, 0, 0, 0.3)',
+                            height: '100%',
+                        }}
+                    >
+                        <Viewer fileUrl={url} />
+                    </div>
+                ) : (
+                    <div
+                        style={{
+                            alignItems: 'center',
+                            border: '2px dashed rgba(0, 0, 0, .3)',
+                            display: 'flex',
+                            fontSize: '2rem',
+                            height: '100%',
+                            justifyContent: 'center',
+                            width: '100%',
+                        }}
+                    >
+                        Preview area
+                    </div>
+                )}
+            </div>
+        </div>
+    );
 };
 
 export default PdfViewer;

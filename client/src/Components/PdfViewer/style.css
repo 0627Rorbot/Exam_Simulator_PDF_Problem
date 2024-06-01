@@ -1,65 +1,16 @@
-.bordered {
-  border-color: #383838;
-  border-width: 3px;
-  border-style: solid;
+.pdf-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
 }
 
-.customViewer {
-  border-color: #fa5b35;
-  border-width: 1px;
-  border-style: solid;
+.pdf-viewer input {
+  margin-bottom: 20px;
 }
-.customCanvas {
-  height: 500px;
-  max-height: 500px;
-  min-width: 500px;
-  max-width: 500px;
-  overflow: auto;
-}
-.customPrevBtn {
-  cursor: pointer;
-  display: inline-block;
-  margin: 0;
-  width: auto;
-  color: #fa5b35;
-  background-color: #f3f3f3;
-  border-color: #fa5b35;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 6px;
-}
-.customNextBtn {
-  cursor: pointer;
-  display: inline-block;
-  margin: 0;
-  width: auto;
-  color: #fa5b35;
-  background-color: #f3f3f3;
-  border-color: #333333;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 6px;
-}
-.customResetBtn {
-  cursor: pointer;
-  display: inline-block;
-  margin: 0;
-  width: auto;
-  color: #45fa35;
-  background-color: #f3f3f3;
-  border-color: #45fa35;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 6px;
-}
-.customPages {
-  font-size: medium;
-  margin: 0.5rem;
-}
-.customWrapper {
-  height: 40px;
-  font-size: 24px;
-  padding: 12px;
-  padding-bottom: 0;
-  background-color: #fff;
+
+.pdf-viewer .pdf-document {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

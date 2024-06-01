@@ -9,7 +9,6 @@ from pymongo import MongoClient
 import pdfplumber
 import random
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -67,38 +66,21 @@ def login():
 
     return jsonify({'msg': 'The username or password is incorrect'}), 401
 
-# Create listing API route
-@app.route("/createlisting", methods=["POST"])
-@jwt_required( )
-def createlisting():
-    new_listing = request.get_json() # store the json body request
-    new_listing["user_id"] = ObjectId(new_listing["user_id"])
-    listings_collection.insert_one(new_listing)
-    return jsonify({'msg': 'Listing created successfully'}), 202
-
-@app.route("/deletelisting", methods=["GET"])
-@jwt_required( )
-def deletelisting():
-    args = request.args
-    listing_id = args.get("listing_id")
-    listings_collection.delete_one({"_id": ObjectId(listing_id)})
-    return jsonify({'msg': 'Listing deleted successfully'}), 203
+# @app.route("/deletelisting", methods=["GET"])
+# @jwt_required( )
+# def deletelisting():
+#     args = request.args
+#     listing_id = args.get("listing_id")
+#     listings_collection.delete_one({"_id": ObjectId(listing_id)})
+#     return jsonify({'msg': 'Listing deleted successfully'}), 203
 
 def parse_json(data):
     return json.loads(json_util.dumps(data))
 
-# Members API route
-@app.route("/members")
-def members():
-    return {"members": ["Danial", "Rather", "YJ"]}
-
-# Get listings API route
-# Get listings for given user_id
-@app.route("/listings", methods=["GET"])
-def listing():
-    args = request.args
-    user_id = args.get("user_id")
-    return parse_json(listings_collection.find({ "user_id": ObjectId(user_id) }))
+# # Members API route
+# @app.route("/members")
+# def members():
+#     return {"members": ["Danial", "Rather", "YJ"]}
 
 # Get listings that match (with usernames fetched from user ID)
 @app.route("/searchlistings", methods=["GET"])
@@ -123,10 +105,12 @@ def getusername():
 
 # PDF Simulator
 
+question_file_name = 'test2'
+
 @app.route('/api/questions', methods=['GET'])
 @jwt_required( )
 def get_questions():
-    pdf_path = './build/temp2.pdf'
+    pdf_path = f'./build/{question_file_name}.pdf'
 
     questions = []
     with pdfplumber.open(pdf_path) as pdf:
@@ -144,7 +128,6 @@ def get_questions():
     return jsonify(selected_questions)
 
 @app.route('/api/upload', methods = ['POST'])
-@jwt_required( )
 def upload_file():
     file = request.files['file']
     file.save('./build/temp2.pdf')

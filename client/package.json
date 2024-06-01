@@ -12,6 +12,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-pdf-viewer/core": "^3.12.0",
     "@react-pdf-viewer/default-layout": "^3.12.0",
+    "@teamhive/pdf-viewer": "^5.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -19,6 +20,7 @@
     "buffer": "^6.0.3",
     "chakra-react-select": "^4.4.3",
     "framer-motion": "^7.10.2",
+    "pdf-react": "^1.5.1",
     "react": "^18.2.0",
     "react-aws-s3": "^1.5.0",
     "react-cookie": "^4.1.1",
@@ -55,5 +57,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "worker-loader": "^3.0.8"
   }
 }
