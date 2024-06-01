@@ -1,48 +1,35 @@
-import * as React from 'react';
-import { Viewer } from '@react-pdf-viewer/core';
+import { useEffect, useRef } from 'react';
 
-import '@react-pdf-viewer/core/lib/styles/index.css';
+const PdfViewer = (props) => {
+	const containerRef = useRef(null);
+    console.log(`${window.location.protocol}//${window.location.host}/${process.env.PUBLIC_URL}`);
+    
+	useEffect(() => {
+		const container = containerRef.current;
+		let instance, PSPDFKit;
+		(async function () {
+			PSPDFKit = await import('pspdfkit');
+			PSPDFKit.unload(container);
 
-const PdfViewer= () => {
-    const [url, setUrl] = React.useState('');
+			instance = await PSPDFKit.load({
+				// Container where PSPDFKit should be mounted.
+				container,
+				// The document to open.
+				document: props.document,
+				// Use the public directory URL as a base URL. PSPDFKit will download its library assets from here.
+				baseUrl: `${window.location.protocol}//${window.location.host}/${process.env.PUBLIC_URL}`,
+			});
+		})();
 
-    const onChange = (e) => {
-        const files = e.target.files;
-        files.length > 0 && setUrl(URL.createObjectURL(files[0]));
-    };
+		return () => PSPDFKit && PSPDFKit.unload(container);
+	}, []);
 
-    return (
-        <div>
-            <input type="file" accept=".pdf" onChange={onChange} />
+	return (
+		<div
+			ref={containerRef}
+			style={{ width: '100%', height: '100vh' }}
+		/>
+	);
+}
 
-            <div className="mt4" style={{ height: '750px' }}>
-                {url ? (
-                    <div
-                        style={{
-                            border: '1px solid rgba(0, 0, 0, 0.3)',
-                            height: '100%',
-                        }}
-                    >
-                        <Viewer fileUrl={url} />
-                    </div>
-                ) : (
-                    <div
-                        style={{
-                            alignItems: 'center',
-                            border: '2px dashed rgba(0, 0, 0, .3)',
-                            display: 'flex',
-                            fontSize: '2rem',
-                            height: '100%',
-                            justifyContent: 'center',
-                            width: '100%',
-                        }}
-                    >
-                        Preview area
-                    </div>
-                )}
-            </div>
-        </div>
-    );
-};
-
-export default PdfViewer;
+export default PdfViewer

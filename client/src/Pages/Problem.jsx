@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Header from "../Components/Header";
 import axios from "axios";
 import BSpinner from "../Components/Spinner";
+import PdfViewer from "../Components/PdfViewer";
 import {
   Box,
   FormControl,
@@ -120,7 +121,7 @@ const Problem = () => {
                   <Button colorScheme="green" onClick={() => my_file.current.click()}>
                     <FaRegFilePdf />
                     PDF
-                  </Button>                
+                  </Button>          
                 </WrapItem>
                 <WrapItem>
                   <Button colorScheme="blue" onClick={() => onAdd()}>
@@ -158,6 +159,9 @@ const Problem = () => {
             <BCard />
           </WrapItem>
         </Wrap>
+      </Box>
+      <Box>
+        <PdfViewer document={'slides.pdf'} />
       </Box>
     </>
   );
