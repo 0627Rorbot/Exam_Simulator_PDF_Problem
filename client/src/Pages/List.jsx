@@ -26,31 +26,31 @@ const List = () => {
   useEffect(() => {
     const getListingsForCurrentUser = async () => {
       try {
-        const responseProfile = await axios.get(process.env.REACT_APP_API_BASE + "/user", {
+        const responseProfile = await axios.get(process.env.REACT_APP_API_BASE + "profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log(
           "Get user profile response: ",
           responseProfile.data.profile
         );
-        if (responseProfile.status === 200) {
-          const user_id = responseProfile.data.profile._id;
-          const responseListings = await axios.get(process.env.REACT_APP_API_BASE + "/listings", {
-            params: { user_id },
-          });
-          console.log("Listings response", responseListings);
-          setListings(responseListings.data);
-        }
+        // if (responseProfile.status === 200) {
+        //   const user_id = responseProfile.data.profile._id;
+        //   const responseListings = await axios.get(process.env.REACT_APP_API_BASE + "/listings", {
+        //     params: { user_id },
+        //   });
+        //   console.log("Listings response", responseListings);
+        //   setListings(responseListings.data);
+        // }
       } catch (error) {
         console.log("Get user profile error: ", error);
       }
     };
 
     if (isAuthenticated) {
-      getListingsForCurrentUser();
+      // getListingsForCurrentUser();
     }
     if (listingDeleted) {
-      setListingDeleted(false);
+      // setListingDeleted(false);
     }
   }, [listingDeleted]);
 

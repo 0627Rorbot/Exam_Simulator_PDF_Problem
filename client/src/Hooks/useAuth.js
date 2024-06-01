@@ -44,7 +44,7 @@ function useProvideAuth() {
 
   const register = async (username, email, password) => {
     return axiosClient
-      .post("/user", {
+      .post("/signup", {
         username: username,
         email: email,
         password: password,

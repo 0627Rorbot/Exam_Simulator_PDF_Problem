@@ -82,19 +82,6 @@ def parse_json(data):
 # def members():
 #     return {"members": ["Danial", "Rather", "YJ"]}
 
-# Get listings that match (with usernames fetched from user ID)
-@app.route("/searchlistings", methods=["GET"])
-def searchlistings():
-    args = request.args
-    search_term = args.get("search_term")
-    listings_collection.create_index([("title", 'text')])
-    search_results = parse_json(listings_collection.find({ "$text": { "$search": search_term } }))
-    for x in range(len(search_results)):
-        user_id = search_results[x]["user_id"]["$oid"]
-        username = parse_json(users_collection.find_one({"_id" : ObjectId(user_id)}))["username"]
-        search_results[x]["username"] = username
-    return search_results
-
 # Get username from user_id
 @app.route("/getusername", methods=["GET"])
 def getusername():

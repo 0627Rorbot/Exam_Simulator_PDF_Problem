@@ -32,4 +32,5 @@ def save_exam_Problems():
     print(data)
     title = data["title"]
 
-    return jsonify(save_problems(title))
+    status = save_problems(title)
+    return jsonify({"status": status})

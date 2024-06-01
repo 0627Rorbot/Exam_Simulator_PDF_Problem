@@ -15,7 +15,7 @@ app.config.from_object(Config)
 jwt = JWTManager(app)
 mongo = MongoClient('localhost', 27017)
 
-from app.views import user, auth, problem
+from app.views import auth, problem
 
 if __name__ == '__main__':
     app.run()

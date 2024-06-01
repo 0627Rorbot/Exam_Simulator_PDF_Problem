@@ -74,21 +74,23 @@ const Problem = () => {
     formData.append("file", file);
 
     try {
-      let res = await axios.post(process.env.REACT_APP_API_BASE + "api/upload", formData)
-      toast({ title: 'Pdf Upload.', description: res.msg, status: 'success', duration: 5000, isClosable: true, })
+      let upload_res = await axios.post(process.env.REACT_APP_API_BASE + "api/upload", formData)
+      toast({ title: 'Pdf Upload.', description: upload_res.msg, status: 'success', duration: 5000, isClosable: true, })
 
-      if(res.status == false) {
+      if(upload_res.status == false) {
         setLoad(false)
         return;
       }
       
-      res = await axios.post(process.env.REACT_APP_API_BASE + "api/problem", {title: title})
-      toast({ title: 'Create Pdf Problem.', description: res.msg, status: 'success', duration: 5000, isClosable: true, })
+      let problem_res = await axios.post(process.env.REACT_APP_API_BASE + "api/problem", {title: title})
+      toast({ title: 'Create Pdf Problem.', description: problem_res.msg, status: 'success', duration: 5000, isClosable: true, })
+      setLoad(false)
+      return
     } catch (error) {
       console.log(error);
+      setLoad(false)
+      toast({ title: 'Request Error!', description: "Can\'t Create Pdf Problem.", status: 'error', duration: 5000, isClosable: true,})
     }
-    setLoad(false)
-    toast({ title: 'Request Error!', description: "Can\'t Create Pdf Problem.", status: 'Failed', duration: 5000, isClosable: true,})
   };
 
   return (
@@ -101,13 +103,14 @@ const Problem = () => {
     }
       <Header />
       <Box background={''} p={5}>
-        <Wrap spacing='30px' justify='center'>
+        <Wrap justify='center' spacing={'30px'} size='lg'>
           <WrapItem>
             <FormControl>
               <FormLabel>Exam Title</FormLabel>
               <Input 
                 placeholder="Title 1"
                 value={title}
+                size='lg'
                 onChange={(e) => setTitle(e.target.value)} 
               />
               <FormHelperText>We need to input title.</FormHelperText>
@@ -116,7 +119,7 @@ const Problem = () => {
           <WrapItem>
             <FormControl>
               <FormLabel>PDF Exam Problem URL</FormLabel>
-              <Input type="text" placeholder="http://exam.pdf.com" readOnly={true} value={fileUrl} />
+              <Input type="text" placeholder="http://exam.pdf.com" size='lg' readOnly={true} value={fileUrl} />
               <FormHelperText>We need to input pdf url.</FormHelperText>
             </FormControl>
           </WrapItem>
@@ -137,7 +140,7 @@ const Problem = () => {
                   </Button>
                 </WrapItem>
                 <WrapItem>
-                  <Button mr={0} colorScheme="green" onClick={() => onAdd()}>
+                  <Button mr={0} colorScheme="green" >
                     <ImFilePdf />
                     View
                   </Button>

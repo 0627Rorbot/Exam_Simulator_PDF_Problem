@@ -1,5 +1,8 @@
 import { useAuth } from "../Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineLogout } from "react-icons/md";
+import { HiOutlineLogin } from "react-icons/hi";
+import { LuUserPlus2 } from "react-icons/lu";
 import {
   Box,
   Flex,
@@ -17,6 +20,7 @@ import {
   useColorModeValue,
   useDisclosure,
   Center,
+  Avatar,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -100,7 +104,8 @@ const Header = () => {
                     color: linkHoverColor,
                   }}
                 >
-                  Welcome, {currentUser}
+                  {/* Welcome, {currentUser} */}
+                  <Avatar name={currentUser} />
                 </Link>
               </Center>
               {/* <Link href={"/createlisting"} _hover={{ textDecoration: "none" }}>
@@ -118,38 +123,47 @@ const Header = () => {
                   Create Listing
                 </Button>
               </Link> */}
-              <Button
+              <IconButton
                 as={"a"}
-                fontSize={"sm"}
-                fontWeight={400}
+                fontSize={"30px"}
                 variant={"link"}
                 onClick={tryLogout}
+                cursor={'pointer'}
+                fontWeight={400}
               >
-                Log Out
-              </Button>
+                <MdOutlineLogout />
+              </IconButton>
             </>
           ) : (
             <>
-              <Button
-                as={"a"}
-                fontSize={"sm"}
-                fontWeight={400}
-                variant={"link"}
-                href={"/login"}
-              >
-                Sign In
-              </Button>
+              <Link href={"/login"} _hover={{ textDecoration: "none" }}>
+                <Button
+                  display={{ base: "none", md: "inline-flex" }}
+                  fontSize={"sm"}
+                  fontWeight={600}
+                  color={"white"}
+                  bg={"blue.500"}
+                  href={"/login"}
+                  _hover={{
+                    bg: "blue.300",
+                  }}
+                  leftIcon={<HiOutlineLogin size={'20px'}/>}
+                >
+                  Log in
+                </Button>
+              </Link>
               <Link href={"/register"} _hover={{ textDecoration: "none" }}>
                 <Button
                   display={{ base: "none", md: "inline-flex" }}
                   fontSize={"sm"}
                   fontWeight={600}
                   color={"white"}
-                  bg={"blue.400"}
+                  bg={"blue.500"}
                   href={"/register"}
                   _hover={{
                     bg: "blue.300",
                   }}
+                  rightIcon={<LuUserPlus2 size={'20px'}/>}
                 >
                   Sign Up
                 </Button>
@@ -324,14 +338,14 @@ const NAV_ITEMS = [
     label: "Exam",
     children: [
       {
-        label: "Our Team",
-        subLabel: "We are so epic",
-        href: "#",
+        label: "Test",
+        subLabel: "Let's learn more.",
+        href: "/test",
       },
       {
-        label: "Our Story",
-        subLabel: "An epic saga",
-        href: "#",
+        label: "History",
+        subLabel: "Please see your test history lists",
+        href: "/history",
       },
     ],
   },

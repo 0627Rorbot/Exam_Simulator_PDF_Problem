@@ -7,6 +7,8 @@ import Login from './Pages/Login';
 import Exam from './Pages/Exam'
 import Problem from './Pages/Problem'
 import NotFound from './libs/NotFound'
+import Test from './Pages/Test';
+import History from './Pages/History';
 
 const App = () => {
 
@@ -19,6 +21,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/exam" element={<Exam/>} />
         <Route path="/problem" element={<Problem/>} />     
+        <Route path="/test" element={<Test/>} />     
+        <Route path="/history" element={<History/>} />     
         <Route component={NotFound} />
       </Routes>
     </div>
