@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Header from "../Components/Header";
 import axios from "axios";
 // import PdfViewer from "pdf-react";
@@ -26,10 +26,12 @@ const awsConfig = {
 };
 
 const Problem = () => {
-  const [fileUrl, setFileUrl] = useState(undefined);
+  const [fileUrl, setFileUrl] = useState('');
   const [pdf_file, setPdf_File] = useState(undefined);
   const [title, setTitle] = useState('')
   
+  const my_file = useRef()
+
   const onFileChange = (event) => {
     const file = event.target.files[0];
     setPdf_File(file);
@@ -41,7 +43,7 @@ const Problem = () => {
 
   const onAdd = async() => {
     console.log("PDF file upload");
-    if(pdf_file == undefined | title == '') {
+    if(pdf_file == '' | title == '') {
       alert("Input correct!")
       return
     }
@@ -76,19 +78,25 @@ const Problem = () => {
               onChange={(e) => setTitle(e.target.value)} 
             />
           </FormControl>
-
+          <br />
           <FormControl isRequired>
             <FormLabel>PDF Exam</FormLabel>
-            <Input
-              type="file"
-              accept=".pdf"
-              onChange={(e) => onFileChange(e)}
-            />
+            <Input type="text" placeholder="Pdf Url" readOnly={true} value={fileUrl} />
           </FormControl>
-          <Button colorScheme="blue" onClick={() => onAdd()}>
-            Insert Problem
-          </Button>
+          <br />
+          <FormControl>
+            <Button colorScheme="green" onClick={() => my_file.current.click()}>
+              PDF
+            </Button>
+            <Button colorScheme="blue" onClick={() => onAdd()}>
+              Insert Problem
+            </Button>
+          </FormControl>
         </Box>
+        <input type="file" 
+          className="" ref={my_file}
+          onChange={(e) => onFileChange(e)}
+        />
         <Box>
           <Stack spacing={4}>
             <FormControl>
