@@ -1,35 +1,20 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from "react";
+import { Worker, Viewer } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/core/lib/styles/index.css";
 
-const PdfViewer = (props) => {
-	const containerRef = useRef(null);
-    console.log(`${window.location.protocol}//${window.location.host}/${process.env.PUBLIC_URL}`);
-    
-	useEffect(() => {
-		const container = containerRef.current;
-		let instance, PSPDFKit;
-		(async function () {
-			PSPDFKit = await import('pspdfkit');
-			PSPDFKit.unload(container);
+const PdfHighlighter = () => {
+  const viewerRef = useRef(null);
 
-			instance = await PSPDFKit.load({
-				// Container where PSPDFKit should be mounted.
-				container,
-				// The document to open.
-				document: props.document,
-				// Use the public directory URL as a base URL. PSPDFKit will download its library assets from here.
-				baseUrl: `${window.location.protocol}//${window.location.host}/${process.env.PUBLIC_URL}`,
-			});
-		})();
+  return (
+    <div
+    >
+      <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
+				<Viewer
+					fileUrl='./slides.pdf'
+				/>
+      </Worker>
+    </div>
+  );
+};
 
-		return () => PSPDFKit && PSPDFKit.unload(container);
-	}, []);
-
-	return (
-		<div
-			ref={containerRef}
-			style={{ width: '100%', height: '100vh' }}
-		/>
-	);
-}
-
-export default PdfViewer
+export default PdfHighlighter;

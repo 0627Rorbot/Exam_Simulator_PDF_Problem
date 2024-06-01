@@ -3,22 +3,27 @@ import Header from "../Components/Header";
 import axios from "axios";
 import BSpinner from "../Components/Spinner";
 import PdfViewer from "../Components/PdfViewer";
+import { IoMdSettings } from "react-icons/io";
+import { IconButton } from '@chakra-ui/react'
+
 import {
   Box,
   FormControl,
   FormLabel,
   Button,
-  SimpleGrid,
-  HStack,
-  Stack,
   Input,
   useToast,
-  useDisclosure,
-  ButtonGroup,
-  Center,
   FormHelperText,
   Wrap,
-  WrapItem
+  WrapItem,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure
 } from "@chakra-ui/react";
 import { FaRegFilePdf } from "react-icons/fa6";
 import { GrDocumentUpdate } from "react-icons/gr";
@@ -37,7 +42,9 @@ const awsConfig = {
 };
 
 const Problem = () => {
-
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = React.useRef()
+  
   const [fileUrl, setFileUrl] = useState('');
   const [pdf_file, setPdf_File] = useState(undefined);
   const [title, setTitle] = useState('')
@@ -99,7 +106,7 @@ const Problem = () => {
             <FormControl>
               <FormLabel>Exam Title</FormLabel>
               <Input 
-                placeholder="exam 1"
+                placeholder="Title 1"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)} 
               />
@@ -140,6 +147,9 @@ const Problem = () => {
           </WrapItem>
         </Wrap>
       </Box>
+      <IconButton ref={btnRef} colorScheme='teal' onClick={onOpen} w={'50px'} h={'50px'}>
+        <IoMdSettings fontSize={'50px'} />
+      </IconButton>
       <input type="file" 
         className="hidden" ref={my_file}
         onChange={(e) => onFileChange(e)}
@@ -160,9 +170,31 @@ const Problem = () => {
           </WrapItem>
         </Wrap>
       </Box>
-      <Box>
-        <PdfViewer document={'slides.pdf'} />
-      </Box>
+      <Drawer
+        isOpen={isOpen}
+        placement='right'
+        onClose={onClose}
+        finalFocusRef={btnRef}
+        size={"full"}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>PDF View - Title: Title_1</DrawerHeader>
+          <DrawerBody>
+            <Box>
+              <PdfViewer />
+            </Box>
+          </DrawerBody>
+
+          <DrawerFooter>
+            {/* <Button variant='outline' mr={3} onClick={onClose}>
+              Cancel
+            </Button> */}
+            {/* <Button colorScheme='blue'>Save</Button> */}
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 };
