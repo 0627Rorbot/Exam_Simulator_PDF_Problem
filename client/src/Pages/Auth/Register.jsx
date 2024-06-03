@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Header from "../Components/Header";
+import Header from "../../Components/Header";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../Hooks/useAuth";
+import { useAuth } from "../../Hooks/useAuth";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Flex,
@@ -21,9 +21,10 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState();
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
@@ -34,16 +35,24 @@ const Login = () => {
     setUsername(e.target.value); // set name to e.target.value (event)
   };
 
+  const handleChangeEmail = (e) => {
+    e.preventDefault(); // prevent the default action
+    setEmail(e.target.value); // set name to e.target.value (event)
+  };
+
   const handleChangePassword = (e) => {
     e.preventDefault(); // prevent the default action
     setPassword(e.target.value); // set name to e.target.value (event)
   };
 
-  const tryLogin = async (e) => {
+  const tryRegister = async (e) => {
     e.preventDefault();
     try {
-      const responseStatus = await auth.login(username, password);
-      if (responseStatus === 200) navigate("/");
+      const registerResponse = await auth.register(username, email, password);
+      if (registerResponse === 201) {
+        const loginResponse = await auth.login(username, password);
+        if (loginResponse === 200) navigate("/");
+      }
     } catch {
       setError(true);
     }
@@ -52,17 +61,21 @@ const Login = () => {
   return (
     <>
       <Header></Header>
-      <Flex minH={"10vh"} align={"center"} justify={"center"}>
+      <Flex
+        minH={"10vh"}
+        align={"center"}
+        justify={"center"}
+      >
         <Stack spacing={8} mx={"auto"} w={"500px"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
             <Heading fontSize={"4xl"} textAlign={"center"}>
-              Log in
+              Sign up
             </Heading>
             {/* <Text fontSize={"lg"} color={"gray.600"}>
-              Let's Learn! 👋
+              to start selling and trading books ✌️
             </Text> */}
           </Stack>
-          <form onSubmit={tryLogin}>
+          <form onSubmit={tryRegister}>
             <Box
               rounded={"lg"}
               bg={useColorModeValue("white", "gray.700")}
@@ -77,6 +90,10 @@ const Login = () => {
                 >
                   <FormLabel>Username</FormLabel>
                   <Input type="username" />
+                </FormControl>
+                <FormControl id="email" onChange={handleChangeEmail} isRequired>
+                  <FormLabel>Email address</FormLabel>
+                  <Input type="email" />
                 </FormControl>
                 <FormControl
                   id="password"
@@ -102,7 +119,7 @@ const Login = () => {
                   {error && (
                     <Alert status="error">
                       <AlertIcon />
-                      Username or password is incorrect
+                      User already exists
                     </Alert>
                   )}
                   <Button
@@ -115,14 +132,14 @@ const Login = () => {
                       bg: "blue.500",
                     }}
                   >
-                    Log in
+                    Sign up
                   </Button>
                 </Stack>
                 <Stack pt={6}>
                   <Text align={"center"}>
-                    Don't have an account?{" "}
-                    <Link href={"/register"} color={"blue.400"}>
-                      Sign up
+                    Already a user?{" "}
+                    <Link href={"/auth/login"} color={"blue.400"}>
+                      Login
                     </Link>
                   </Text>
                 </Stack>
@@ -135,4 +152,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default Register;

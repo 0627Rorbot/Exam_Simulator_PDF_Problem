@@ -82,6 +82,13 @@ def save_problems(title):
                 for opt in content_types['options']:
                     if opt in li:
                         question['options'].append(li)
+            # if(question['question'] == '' || len(question['options']) == 0 || question['correct'] == '')
+            #     question = {
+            #         "question": '',
+            #         "options": [],
+            #         "correct": ''
+            #     }
+            #     continue
             questions.append(question)
         return questions
     
@@ -130,17 +137,25 @@ def get_problems(problem_id, problem_cnt):
 
     # get one problem array from local file
     def get_problems_file(filename):
-        local_url = f"../build/{filename}"
+        local_url = f"./build/json/{filename}"
         with open(local_url, "r") as file:
             data = file.read()
             file.close()
-        return data
+
+        try:
+            json_data = json.loads(data)
+            return json_data
+        except json.JSONDecodeError as e:
+            return {}
     
     prob_info = get_problem_info(problem_id)
     db_filename = prob_info["filename"]
-    db_totalcnt = len(prob_info)
     
-    prob_list = get_problems_file(db_filename)
+    prob_data = get_problems_file(db_filename)
+    print(type(prob_data))
+    prob_list = prob_data['data']
+    print(prob_list)
+    db_totalcnt = len(prob_list)
     if db_totalcnt < problem_cnt:
         return parse_json([])
     else:
@@ -149,7 +164,7 @@ def get_problems(problem_id, problem_cnt):
         final_problems = []
         for num in problem_nums:
             final_problems.append(prob_list[num])
-        return parse_json(final_problems)
+        return final_problems
 
 #get random filename
 def get_random_filename():

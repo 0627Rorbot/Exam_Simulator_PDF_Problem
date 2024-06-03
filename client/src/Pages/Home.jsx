@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '../Components/Header'
-import Problem from './List'
-import SearchBar from '../Components/SearchBar'
+// import SearchBar from '../Components/SearchBar'
 import { useAuth } from '../Hooks/useAuth';
 
 const Home = () => {
@@ -13,7 +12,7 @@ const Home = () => {
             {/* <div style={{paddingTop: "50px", paddingBottom: "50px"}}>
                 <SearchBar />
             </div> */}
-            {isAuthenticated && <Problem />}
+            {/* {isAuthenticated && <Problem />} */}
             
         </div>
         

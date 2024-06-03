@@ -136,14 +136,14 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link href={"/login"} _hover={{ textDecoration: "none" }}>
+              <Link href={"/auth/login"} _hover={{ textDecoration: "none" }}>
                 <Button
                   display={{ base: "none", md: "inline-flex" }}
                   fontSize={"sm"}
                   fontWeight={600}
                   color={"white"}
                   bg={"blue.500"}
-                  href={"/login"}
+                  href={"/auth/login"}
                   _hover={{
                     bg: "blue.300",
                   }}
@@ -152,14 +152,14 @@ const Header = () => {
                   Log in
                 </Button>
               </Link>
-              <Link href={"/register"} _hover={{ textDecoration: "none" }}>
+              <Link href={"/auth/register"} _hover={{ textDecoration: "none" }}>
                 <Button
                   display={{ base: "none", md: "inline-flex" }}
                   fontSize={"sm"}
                   fontWeight={600}
                   color={"white"}
                   bg={"blue.500"}
-                  href={"/register"}
+                  href={"/auth/register"}
                   _hover={{
                     bg: "blue.300",
                   }}
@@ -340,12 +340,12 @@ const NAV_ITEMS = [
       {
         label: "Test",
         subLabel: "Let's learn more.",
-        href: "/test",
+        href: "/exam/test",
       },
       {
         label: "History",
         subLabel: "Please see your test history lists",
-        href: "/history",
+        href: "/exam/history",
       },
     ],
   },

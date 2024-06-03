@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react"
 import bookImage from './../Images/bookImage.jpg'
 
-const BCard = () => {
+const BCard = ({onTryit}) => {
   return (
     <Card
       overflow='hidden'
@@ -19,28 +19,31 @@ const BCard = () => {
       maxW='sm'
       mt={'30px'}
     >
-      <Image
-        src={bookImage}
-        alt='Green double couch with wooden legs'
-        borderRadius='sm'
-        sizes="sm"
-      />
       <Stack>
         <CardBody>
-          <Heading size='md'>The perfect latte</Heading>
+          <Heading size='md'>Exam_Title: 'Title_1'</Heading>
+          <Image
+            src={bookImage}
+            alt='Green double couch with wooden legs'
+            borderRadius='sm'
+            sizes="sm"
+          />
           <Text py='2'>
-            Caffè latte is a coffee beverage of Italian origin made with espresso
-            and steamed milk.
+            This exam is the largest 
           </Text>
         </CardBody>
 
         <CardFooter>
-          <Button variant='solid' colorScheme='blue'>
-            View
+          <Button 
+            variant='solid' 
+            colorScheme='blue'
+            onClick={onTryit}
+          >
+            Try it.
           </Button>
-          <Button variant='solid' colorScheme='red' ml={3}>
-            Delete
-          </Button>
+          {/* <Button variant='solid' colorScheme='red' ml={3}>
+            View more
+          </Button> */}
         </CardFooter>
       </Stack>
     </Card>

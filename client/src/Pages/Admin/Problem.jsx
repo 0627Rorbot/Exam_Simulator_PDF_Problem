@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import Header from "../Components/Header";
 import axios from "axios";
-import BSpinner from "../Components/Spinner";
-import PdfViewer from "../Components/PdfViewer";
+import Header from "../../Components/Header";
+import BSpinner from "../../libs/TSpinner";
+import PdfViewer from "../../libs/TPdfViewer";
 import { IoMdSettings } from "react-icons/io";
 import { IconButton } from '@chakra-ui/react'
 
@@ -29,8 +29,8 @@ import { FaRegFilePdf } from "react-icons/fa6";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { ImFilePdf } from "react-icons/im";
 
-import './style.css'
-import BCard from "../Components/Card";
+// import './style.css'
+import BCard from "../../Components/Card";
 
 window.Buffer = window.Buffer || require("buffer").Buffer;
 

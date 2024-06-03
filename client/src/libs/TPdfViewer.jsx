@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 
-const PdfHighlighter = () => {
+const TPdfViewer = () => {
   const viewerRef = useRef(null);
 
   return (
@@ -17,4 +17,4 @@ const PdfHighlighter = () => {
   );
 };
 
-export default PdfHighlighter;
+export default TPdfViewer;

@@ -1,9 +1,0 @@
-.spinner {
-  z-index: 100;
-  opacity: 0.8;
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  height: 100vh;
-  background-color: bisque;
-}

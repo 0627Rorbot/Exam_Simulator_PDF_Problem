@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Header from "../Components/Header";
+import Header from "../../Components/Header";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../Hooks/useAuth";
+import { useAuth } from "../../Hooks/useAuth";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Flex,
@@ -21,10 +21,9 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 
-const Register = () => {
+const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
@@ -35,24 +34,16 @@ const Register = () => {
     setUsername(e.target.value); // set name to e.target.value (event)
   };
 
-  const handleChangeEmail = (e) => {
-    e.preventDefault(); // prevent the default action
-    setEmail(e.target.value); // set name to e.target.value (event)
-  };
-
   const handleChangePassword = (e) => {
     e.preventDefault(); // prevent the default action
     setPassword(e.target.value); // set name to e.target.value (event)
   };
 
-  const tryRegister = async (e) => {
+  const tryLogin = async (e) => {
     e.preventDefault();
     try {
-      const registerResponse = await auth.register(username, email, password);
-      if (registerResponse === 201) {
-        const loginResponse = await auth.login(username, password);
-        if (loginResponse === 200) navigate("/");
-      }
+      const responseStatus = await auth.login(username, password);
+      if (responseStatus === 200) navigate("/");
     } catch {
       setError(true);
     }
@@ -61,21 +52,17 @@ const Register = () => {
   return (
     <>
       <Header></Header>
-      <Flex
-        minH={"10vh"}
-        align={"center"}
-        justify={"center"}
-      >
+      <Flex minH={"10vh"} align={"center"} justify={"center"}>
         <Stack spacing={8} mx={"auto"} w={"500px"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
             <Heading fontSize={"4xl"} textAlign={"center"}>
-              Sign up
+              Log in
             </Heading>
             {/* <Text fontSize={"lg"} color={"gray.600"}>
-              to start selling and trading books ✌️
+              Let's Learn! 👋
             </Text> */}
           </Stack>
-          <form onSubmit={tryRegister}>
+          <form onSubmit={tryLogin}>
             <Box
               rounded={"lg"}
               bg={useColorModeValue("white", "gray.700")}
@@ -90,10 +77,6 @@ const Register = () => {
                 >
                   <FormLabel>Username</FormLabel>
                   <Input type="username" />
-                </FormControl>
-                <FormControl id="email" onChange={handleChangeEmail} isRequired>
-                  <FormLabel>Email address</FormLabel>
-                  <Input type="email" />
                 </FormControl>
                 <FormControl
                   id="password"
@@ -119,7 +102,7 @@ const Register = () => {
                   {error && (
                     <Alert status="error">
                       <AlertIcon />
-                      User already exists
+                      Username or password is incorrect
                     </Alert>
                   )}
                   <Button
@@ -132,14 +115,14 @@ const Register = () => {
                       bg: "blue.500",
                     }}
                   >
-                    Sign up
+                    Log in
                   </Button>
                 </Stack>
                 <Stack pt={6}>
                   <Text align={"center"}>
-                    Already a user?{" "}
-                    <Link href={"/login"} color={"blue.400"}>
-                      Login
+                    Don't have an account?{" "}
+                    <Link href={"/auth/register"} color={"blue.400"}>
+                      Sign up
                     </Link>
                   </Text>
                 </Stack>
@@ -152,4 +135,4 @@ const Register = () => {
   );
 }
 
-export default Register;
+export default Login;

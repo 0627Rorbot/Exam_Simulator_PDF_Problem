@@ -1,14 +1,14 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom";
-import CreateListing from './Pages/Problem';
 import Home from './Pages/Home';
-import Register from './Pages/Register';
-import Login from './Pages/Login';
-import Exam from './Pages/Exam'
-import Problem from './Pages/Problem'
+import Register from './Pages/Auth/Register';
+import Login from './Pages/Auth/Login';
+import Problem from './Pages/Admin/Problem'
 import NotFound from './libs/NotFound'
-import Test from './Pages/Test';
-import History from './Pages/History';
+import Test from './Pages/Exam/Test';
+import History from './Pages/Exam/History';
+import Test_Home from './Pages/Exam/Test/Test_Home';
+import Test_Main from './Pages/Exam/Test/Test_Main';
 
 const App = () => {
 
@@ -16,13 +16,13 @@ const App = () => {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/createlisting" element={<CreateListing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/exam" element={<Exam/>} />
-        <Route path="/problem" element={<Problem/>} />     
-        <Route path="/test" element={<Test/>} />     
-        <Route path="/history" element={<History/>} />     
+        <Route path="/auth/register" element={<Register />} />
+        <Route path="/auth/login" element={<Login />} />
+        <Route path="/admin/problem" element={<Problem/>} />     
+        <Route path="/exam/test" element={<Test/>} />     
+        <Route path="/exam/history" element={<History/>} />
+        <Route path='/exam/test/home' element={<Test_Home />} />
+        <Route path='/exam/test/main' element={<Test_Main />} />
         <Route component={NotFound} />
       </Routes>
     </div>

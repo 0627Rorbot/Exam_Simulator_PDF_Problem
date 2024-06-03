@@ -5,15 +5,22 @@ from app import app
 # from app.controllers.auth_controller import authenticate_user, check_admin
 from app.controllers.problem_controller import get_problems, save_problems
 
-@app.route('/api/exam_problems', methods=['GET'])
-@jwt_required()
+@app.route('/api/problems', methods=['GET'])
+# @jwt_required()
 def get_exam_Problems():
-    args = request.args
-    problem_id = args.get("_id")
-    problem_cnt = args.get("count")
+    # args = request.get_json()
+    # problem_id = args.get["_id"]
+    # problem_cnt = args.get["count"]
+
+    problem_id = '665a6e55ab556dfa22cad3e4'
+    problem_cnt = 10
 
     exam_problems = get_problems(problem_id, problem_cnt)
-    return jsonify({"data": exam_problems})
+    print(len(exam_problems))
+    if len(exam_problems) == 0:
+        return jsonify({"status": False, "msg": "Can't read any problem."})    
+    else:
+        return jsonify({"status": True, "msg": "Read Problem Successfully.", "data": exam_problems})
 
 
 @app.route('/api/upload', methods = ['POST'])

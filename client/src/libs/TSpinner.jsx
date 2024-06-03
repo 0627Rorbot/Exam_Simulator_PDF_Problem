@@ -1,10 +1,16 @@
 import React from "react";
-import { Spinner, AbsoluteCenter, ModalOverlay } from '@chakra-ui/react'
-import "./style.css"
+import { Spinner, AbsoluteCenter, Box } from '@chakra-ui/react'
+// import "./style.css"
 
-const BSpinner = () => {
+const TSpinner = () => {
   return (
-    <div position='relative' className="spinner">
+    <Box 
+      position='relative' 
+      zIndex={'100'}
+      width={'100%'}
+      height={'100vh'}
+      bg={'gray.300'}
+    >
       <AbsoluteCenter p='4' color='white' axis='both'>
         <Spinner
           thickness='4px'
@@ -14,8 +20,8 @@ const BSpinner = () => {
           size='xl'
         />
       </AbsoluteCenter>
-    </div>
+    </Box>
   )
 }
 
-export default BSpinner;
+export default TSpinner;
